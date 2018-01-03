@@ -438,8 +438,7 @@ class BootstrapTable extends Component {
     if (typeof expandColumnOptions.expandColumnBeforeSelectColumn === 'undefined') {
       expandColumnOptions.expandColumnBeforeSelectColumn = true;
     }
-    const colGroups = Util.renderColGroup(columns, this.props.selectRow, expandColumnOptions, this.props.version);
-    const tableFooter = this.renderTableFooter(this.props.footerData, this.state.data, columns, colGroups);
+    const tableFooter = this.renderTableFooter(this.props.footerData, this.state.data, columns);
     let sortIndicator = this.props.options.sortIndicator;
     if (typeof this.props.options.sortIndicator === 'undefined') sortIndicator = true;
 
@@ -468,7 +467,6 @@ class BootstrapTable extends Component {
           <TableHeader
             ref={ node => this.header = node }
             version={ this.props.version }
-            colGroups={ colGroups }
             headerContainerClass={ this.props.headerContainerClass }
             tableHeaderClass={ this.props.tableHeaderClass }
             style={ this.props.headerStyle }
@@ -1407,7 +1405,7 @@ class BootstrapTable extends Component {
     }
   }
 
-  renderTableFooter(footerData, footerFormatterReturnData, columns, colGroups) {
+  renderTableFooter(footerData, footerFormatterReturnData, columns) {
     if (this.props.footer) {
       let hideSelectColumn = true;
       const { mode } = this.props.selectRow;
@@ -1419,7 +1417,6 @@ class BootstrapTable extends Component {
         <TableFooter
           ref={ node => this.footer = node }
           columns={ columns }
-          colGroups={ colGroups }
           footerFormatterReturnData={ footerFormatterReturnData }
           tableFooterClass={ this.props.tableFooterClass }
           style={ this.props.headerStyle }
@@ -1464,9 +1461,9 @@ class BootstrapTable extends Component {
   }
 
   _adjustHeaderWidth() {
-    const header = this.header.getHeaderColGrouop();
+    // const header = this.header.getHeaderColGrouop();
     const tbody = this.body.tbody;
-    const bodyHeader = this.body.getHeaderColGrouop();
+    // const bodyHeader = this.body.getHeaderColGrouop();
     const firstRow = tbody.childNodes[0];
     const isScroll = tbody.parentNode.getBoundingClientRect().height >
       tbody.parentNode.parentNode.getBoundingClientRect().height;
@@ -1491,32 +1488,32 @@ class BootstrapTable extends Component {
             width = 120;
             cell.width = width + lastPadding + 'px';
           }
-          const result = width + lastPadding + 'px';
-          header[i].style.width = result;
-          header[i].style.minWidth = result;
-          if (cells.length - 1 === i) {
-            bodyHeader[i].style.width = width + 'px';
-            bodyHeader[i].style.minWidth = width + 'px';
-          } else {
-            bodyHeader[i].style.width = result;
-            bodyHeader[i].style.minWidth = result;
-          }
+          // const result = width + lastPadding + 'px';
+          // header[i].style.width = result;
+          // header[i].style.minWidth = result;
+          // if (cells.length - 1 === i) {
+          //   bodyHeader[i].style.width = width + 'px';
+          //   bodyHeader[i].style.minWidth = width + 'px';
+          // } else {
+          //   bodyHeader[i].style.width = result;
+          //   bodyHeader[i].style.minWidth = result;
+          // }
         }
       }
     } else {
-      for (const i in bodyHeader) {
-        if (bodyHeader.hasOwnProperty(i)) {
-          const child = bodyHeader[i];
-          if (child.style) {
-            if (child.style.width) {
-              header[i].style.width = child.style.width;
-            }
-            if (child.style.minWidth) {
-              header[i].style.minWidth = child.style.minWidth;
-            }
-          }
-        }
-      }
+      // for (const i in bodyHeader) {
+      //   if (bodyHeader.hasOwnProperty(i)) {
+      //     const child = bodyHeader[i];
+      //     if (child.style) {
+      //       if (child.style.width) {
+      //         header[i].style.width = child.style.width;
+      //       }
+      //       if (child.style.minWidth) {
+      //         header[i].style.minWidth = child.style.minWidth;
+      //       }
+      //     }
+      //   }
+      // }
     }
     this.isVerticalScroll = isScroll;
   }

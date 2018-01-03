@@ -32,8 +32,6 @@ class TableBody extends Component {
     const noneditableRows = (cellEdit.nonEditableRows && cellEdit.nonEditableRows()) || [];
     const unselectable = this.props.selectRow.unselectable || [];
     const isSelectRowDefined = Utils.isSelectRowDefined(this.props.selectRow.mode);
-    const tableHeader = Utils.renderColGroup(this.props.columns,
-        this.props.selectRow, this.props.expandColumnOptions, version);
     const inputType = this.props.selectRow.mode === Const.ROW_SELECT_SINGLE ? 'radio' : 'checkbox';
     const CustomComponent = this.props.selectRow.customComponent;
     const enableKeyBoardNav = (keyBoardNav === true || typeof keyBoardNav === 'object');
@@ -242,7 +240,6 @@ class TableBody extends Component {
         className={ classSet('react-bs-container-body', this.props.bodyContainerClass) }
         style={ this.props.style }>
         <table className={ tableClasses }>
-          { React.cloneElement(tableHeader, { ref: node => this.header = node }) }
           <tbody ref={ node => this.tbody = node }>
             { tableRows }
           </tbody>
