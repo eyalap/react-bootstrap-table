@@ -1463,58 +1463,61 @@ class BootstrapTable extends Component {
   _adjustHeaderWidth() {
     // const header = this.header.getHeaderColGrouop();
     const tbody = this.body.tbody;
+    const theaderContainer = this.header.container;
     // const bodyHeader = this.body.getHeaderColGrouop();
-    const firstRow = tbody.childNodes[0];
+    // const firstRow = tbody.childNodes[0];
     const isScroll = tbody.parentNode.getBoundingClientRect().height >
       tbody.parentNode.parentNode.getBoundingClientRect().height;
 
     const scrollBarWidth = isScroll ? Util.getScrollBarWidth() : 0;
-    if (firstRow && this.store.getDataNum()) {
-      if (isScroll || this.isVerticalScroll !== isScroll) {
-        const cells = firstRow.childNodes;
-        for (let i = 0; i < cells.length; i++) {
-          const cell = cells[i];
-          const computedStyle = window.getComputedStyle(cell);
-          let width = parseFloat(computedStyle.width.replace('px', ''));
-          if (this.isIE) {
-            const paddingLeftWidth = parseFloat(computedStyle.paddingLeft.replace('px', ''));
-            const paddingRightWidth = parseFloat(computedStyle.paddingRight.replace('px', ''));
-            const borderRightWidth = parseFloat(computedStyle.borderRightWidth.replace('px', ''));
-            const borderLeftWidth = parseFloat(computedStyle.borderLeftWidth.replace('px', ''));
-            width = width + paddingLeftWidth + paddingRightWidth + borderRightWidth + borderLeftWidth;
-          }
-          const lastPadding = (cells.length - 1 === i ? scrollBarWidth : 0);
-          if (width <= 0) {
-            width = 120;
-            cell.width = width + lastPadding + 'px';
-          }
-          // const result = width + lastPadding + 'px';
-          // header[i].style.width = result;
-          // header[i].style.minWidth = result;
-          // if (cells.length - 1 === i) {
-          //   bodyHeader[i].style.width = width + 'px';
-          //   bodyHeader[i].style.minWidth = width + 'px';
-          // } else {
-          //   bodyHeader[i].style.width = result;
-          //   bodyHeader[i].style.minWidth = result;
-          // }
-        }
-      }
-    } else {
-      // for (const i in bodyHeader) {
-      //   if (bodyHeader.hasOwnProperty(i)) {
-      //     const child = bodyHeader[i];
-      //     if (child.style) {
-      //       if (child.style.width) {
-      //         header[i].style.width = child.style.width;
-      //       }
-      //       if (child.style.minWidth) {
-      //         header[i].style.minWidth = child.style.minWidth;
-      //       }
-      //     }
-      //   }
-      // }
-    }
+    theaderContainer.style.width = `calc(100% - ${scrollBarWidth}px)`;
+    theaderContainer.style.paddingRight = `${scrollBarWidth}px`;
+    // if (firstRow && this.store.getDataNum()) {
+    //   if (isScroll || this.isVerticalScroll !== isScroll) {
+    //     const cells = firstRow.childNodes;
+    //     for (let i = 0; i < cells.length; i++) {
+    //       const cell = cells[i];
+    //       const computedStyle = window.getComputedStyle(cell);
+    //       let width = parseFloat(computedStyle.width.replace('px', ''));
+    //       if (this.isIE) {
+    //         const paddingLeftWidth = parseFloat(computedStyle.paddingLeft.replace('px', ''));
+    //         const paddingRightWidth = parseFloat(computedStyle.paddingRight.replace('px', ''));
+    //         const borderRightWidth = parseFloat(computedStyle.borderRightWidth.replace('px', ''));
+    //         const borderLeftWidth = parseFloat(computedStyle.borderLeftWidth.replace('px', ''));
+    //         width = width + paddingLeftWidth + paddingRightWidth + borderRightWidth + borderLeftWidth;
+    //       }
+    //       const lastPadding = (cells.length - 1 === i ? scrollBarWidth : 0);
+    //       if (width <= 0) {
+    //         width = 120;
+    //         cell.width = width + lastPadding + 'px';
+    //       }
+    //       // const result = width + lastPadding + 'px';
+    //       // header[i].style.width = result;
+    //       // header[i].style.minWidth = result;
+    //       // if (cells.length - 1 === i) {
+    //       //   bodyHeader[i].style.width = width + 'px';
+    //       //   bodyHeader[i].style.minWidth = width + 'px';
+    //       // } else {
+    //       //   bodyHeader[i].style.width = result;
+    //       //   bodyHeader[i].style.minWidth = result;
+    //       // }
+    //     }
+    //   }
+    // } else {
+    //   // for (const i in bodyHeader) {
+    //   //   if (bodyHeader.hasOwnProperty(i)) {
+    //   //     const child = bodyHeader[i];
+    //   //     if (child.style) {
+    //   //       if (child.style.width) {
+    //   //         header[i].style.width = child.style.width;
+    //   //       }
+    //   //       if (child.style.minWidth) {
+    //   //         header[i].style.minWidth = child.style.minWidth;
+    //   //       }
+    //   //     }
+    //   //   }
+    //   // }
+    // }
     this.isVerticalScroll = isScroll;
   }
 
